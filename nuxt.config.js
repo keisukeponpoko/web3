@@ -1,7 +1,17 @@
-import pkg from './package'
+import pkg from './package';
+const routerBase =
+  process.env.DEPLOY_ENV === 'GH_PAGES'
+    ? {
+        router: {
+          base: '/web3/'
+        }
+      }
+    : {};
 
 export default {
   mode: 'spa',
+
+  ...routerBase,
 
   /*
    ** Headers of the page
@@ -61,8 +71,8 @@ export default {
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
-        })
+        });
       }
     }
   }
-}
+};
