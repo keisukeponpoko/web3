@@ -8,29 +8,33 @@
 </template>
 
 <script>
-import web3 from 'web3';
-
 export default {
   async mounted() {
     // If the user has MetaMask:
-    if (typeof window.web3 === 'undefined') {
-      alert('You need to install MetaMask for this app to work!');
+    if (typeof web3 === 'undefined') {
+      alert('metamask か、web3 ブラウザでこのページを開いてね！！');
       return;
     }
 
-    // ethereum.enable();
-    alert(window.web3);
-    const net = new Web3(window.web3.currentProvider);
-    alert(net);
+    if (typeof window.ethereum !== 'undefined') {
+      alert('metamaskを多分使ってるよ');
+    } else {
+      alert('metamaskを多分使ってないよ');
+    }
 
-    net.eth.getAccounts((error, accounts) => {
+    // metamaskのログインポップアップ起動
+    alert('metamask使ってる?');
+    alert(ethereum.isMetaMask);
+    const v = await ethereum.enable();
+    console.log(v);
+
+    web3.eth.getAccounts((error, accounts) => {
       if (error) return;
       alert(accounts);
       let user_account = accounts[0];
       if (typeof user_account !== 'undefined') {
-        alert(user_account);
-        net.eth.getBalance(user_account, function(err, balance) {
-          const b = net.fromWei(balance, 'ether') + ' ETH';
+        web3.eth.getBalance(user_account, function(err, balance) {
+          const b = web3.fromWei(balance, 'ether') + ' ETH';
 
           alert(b);
         });
