@@ -14,28 +14,28 @@ export default {
   async mounted() {
     // If the user has MetaMask:
     if (typeof window.web3 === 'undefined') {
-      console.error('You need to install MetaMask for this app to work!');
+      alert('You need to install MetaMask for this app to work!');
       return;
     }
 
     window.ethereum.enable();
-    console.log(window.web3);
+    alert(window.web3);
     const net = new Web3(window.web3.currentProvider);
-    console.log(net);
+    alert(net);
 
     net.eth.getAccounts((error, accounts) => {
       if (error) return;
-      console.log(accounts);
+      alert(accounts);
       let user_account = accounts[0];
       if (typeof user_account !== 'undefined') {
-        console.log(user_account);
+        alert(user_account);
         net.eth.getBalance(user_account, function(err, balance) {
           const b = net.fromWei(balance, 'ether') + ' ETH';
 
-          console.log(b);
+          alert(b);
         });
       } else {
-        console.log('ログインして下さい');
+        alert('ログインして下さい');
       }
     });
   }
