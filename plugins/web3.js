@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-export default async function({ app, store }) {
+export default async function({ store }, inject) {
   let web3;
   if (window.ethereum) {
     web3 = new Web3(window.ethereum);
@@ -13,6 +13,8 @@ export default async function({ app, store }) {
     );
     return;
   }
+
+  inject('web3', web3);
 
   if (web3 !== null) {
     web3.eth.getAccounts((error, accounts) => {
@@ -30,6 +32,4 @@ export default async function({ app, store }) {
       }
     });
   }
-
-  app.web3 = web3;
 }
