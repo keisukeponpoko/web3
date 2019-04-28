@@ -18,7 +18,7 @@ export default {
       return;
     }
 
-    window.ethereum.enable();
+    // ethereum.enable();
     alert(window.web3);
     const net = new Web3(window.web3.currentProvider);
     alert(net);
